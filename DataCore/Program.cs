@@ -9,20 +9,33 @@ internal class Program
 {
     static void Main()
     {
-        RegistroDatos[] registros =
-    GeneradorRegistros.Crear(40);
+        try
+        {
+            RegistroDatos[] registros =
+                GeneradorRegistros.Crear(40);
 
-ReporteConsola.MostrarRegistros(
-    "ANTES DEL ORDENAMIENTO",
-    registros);
+            ReporteConsola.MostrarRegistros(
+                "ANTES DEL ORDENAMIENTO",
+                registros);
 
-MetricasOrdenacion metricas =
-    SelectionSorter.OrdenarPorSeleccion(registros);
+            MetricasOrdenacion metricas =
+                SelectionSorter.OrdenarPorSeleccion(registros);
 
-ReporteConsola.MostrarRegistros(
-    "DESPUÉS DEL ORDENAMIENTO",
-    registros);
+            ReporteConsola.MostrarRegistros(
+                "DESPUÉS DEL ORDENAMIENTO",
+                registros);
 
-ReporteConsola.MostrarMetricas(metricas);
+            ReporteConsola.MostrarMetricas(metricas);
+        }
+        catch (ArgumentException ex)
+        {
+            Console.WriteLine(
+                $"[ERROR DE VALIDACIÓN] {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(
+                $"[ERROR INESPERADO] {ex.Message}");
+        }
     }
 }

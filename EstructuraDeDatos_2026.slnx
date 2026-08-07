@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="DataCore.Tests/DataCore.Tests.csproj" />
+  <Project Path="DataCore/DataCore.csproj" />
+</Solution>
