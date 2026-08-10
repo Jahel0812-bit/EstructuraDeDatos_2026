@@ -37,7 +37,7 @@ public static class GeneradorRegistros
             ids[i] = i + 1;
         }
 
-        Random random = new Random();
+        Random random = new Random(42);
 
         for (int i = ids.Length - 1; i > 0; i--)
         {

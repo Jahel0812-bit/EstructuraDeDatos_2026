@@ -9,34 +9,77 @@ internal class Program
 {
     static void Main()
     {
-        try
+try
 {
     RegistroDatos[] registros =
-    {
-        new RegistroDatos(8, 80.0, "A"),
-        new RegistroDatos(3, 30.0, "B"),
-        new RegistroDatos(6, 60.0, "C"),
-        new RegistroDatos(1, 10.0, "D"),
-        new RegistroDatos(5, 50.0, "E")
-    };
+        GeneradorRegistros.Crear(10_000);
 
-    ReporteConsola.MostrarRegistros(
-        "ANTES DE QUICKSORT",
-        registros);
+    RegistroDatos[] copiaSeleccion =
+        (RegistroDatos[])registros.Clone();
 
-    MetricasQuickSort metricasQuickSort =
-    QuickSorter.Ordenar(registros);
+    RegistroDatos[] copiaQuickSort =
+        (RegistroDatos[])registros.Clone();
 
-    ReporteConsola.MostrarRegistros(
-        "DESPUÉS DE QUICKSORT",
-        registros);
-        Console.WriteLine();
-Console.WriteLine("=== MÉTRICAS QUICKSORT ===");
+    Console.WriteLine(
+        $"Original       : {registros.Length} registros");
+
+    Console.WriteLine(
+        $"Copia Selection: {copiaSeleccion.Length} registros");
+
+    Console.WriteLine(
+        $"Copia QuickSort: {copiaQuickSort.Length} registros");
+    
+    Console.WriteLine();
+Console.WriteLine("Ejecutando Selection Sort...");
+
+MetricasOrdenacion metricasSelection =
+    SelectionSorter.OrdenarPorSeleccion(copiaSeleccion);
+
+Console.WriteLine("Selection Sort terminado.");
+
+Console.WriteLine();
+Console.WriteLine("Ejecutando QuickSort...");
+
+MetricasQuickSort metricasQuick =
+    QuickSorter.Ordenar(copiaQuickSort);
+
+Console.WriteLine("QuickSort terminado.");
+
+bool selectionOrdenado =
+    ValidadorOrdenamiento.EstaOrdenado(copiaSeleccion);
+
+bool quickSortOrdenado =
+    ValidadorOrdenamiento.EstaOrdenado(copiaQuickSort);
+
+Console.WriteLine();
+Console.WriteLine("=== RESULTADOS DEL BENCHMARK ===");
+
+Console.WriteLine();
+Console.WriteLine("--- Selection Sort ---");
 Console.WriteLine(
-    $"Llamadas recursivas : {metricasQuickSort.LlamadasRecursivas}");
+    $"Comparaciones : {metricasSelection.TotalComparaciones}");
 Console.WriteLine(
-    $"Tiempo (ms)         : {metricasQuickSort.TiempoMilisegundos:F4}");
-        }
+    $"Intercambios  : {metricasSelection.TotalIntercambios}");
+Console.WriteLine(
+    $"Tiempo (ms)   : {metricasSelection.TiempoMs:F4}");
+
+Console.WriteLine();
+Console.WriteLine("--- QuickSort ---");
+Console.WriteLine(
+    $"Llamadas recursivas : {metricasQuick.LlamadasRecursivas}");
+Console.WriteLine(
+    $"Tiempo (ms)         : {metricasQuick.TiempoMilisegundos:F4}");
+
+    Console.WriteLine();
+Console.WriteLine("=== VALIDACIÓN ===");
+
+Console.WriteLine(
+    $"Selection Sort : {(selectionOrdenado ? "ORDENADO" : "ERROR")}");
+
+Console.WriteLine(
+    $"QuickSort      : {(quickSortOrdenado ? "ORDENADO" : "ERROR")}");
+}
+
         catch (ArgumentException ex)
         {
             Console.WriteLine(
