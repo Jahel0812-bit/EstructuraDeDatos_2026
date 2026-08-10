@@ -67,6 +67,127 @@ foreach (int tamanio in tamanos)
     Console.WriteLine(
         $"QuickSort      : {(quickSortOrdenado ? "ORDENADO" : "ERROR")}");
 }
+
+Console.WriteLine();
+Console.WriteLine("=== CASO EXTREMO: ARREGLO ORDENADO ===");
+
+RegistroDatos[] ordenados = new RegistroDatos[1_000];
+
+for (int i = 0; i < ordenados.Length; i++)
+{
+    ordenados[i] = new RegistroDatos(
+        i + 1,
+        i + 1,
+        $"Registro {i + 1}");
+}
+
+RegistroDatos[] ordenadosSelection =
+    (RegistroDatos[])ordenados.Clone();
+
+RegistroDatos[] ordenadosQuick =
+    (RegistroDatos[])ordenados.Clone();
+
+MetricasOrdenacion metricasSelectionOrdenado =
+    SelectionSorter.OrdenarPorSeleccion(
+        ordenadosSelection);
+
+MetricasQuickSort metricasQuickOrdenado =
+    QuickSorter.Ordenar(
+        ordenadosQuick);
+
+Console.WriteLine(
+    $"Selection Sort : {metricasSelectionOrdenado.TiempoMs:F4} ms");
+
+Console.WriteLine(
+    $"QuickSort      : {metricasQuickOrdenado.TiempoMilisegundos:F4} ms");
+
+Console.WriteLine(
+    $"Selection válido: {ValidadorOrdenamiento.EstaOrdenado(ordenadosSelection)}");
+
+Console.WriteLine(
+    $"QuickSort válido : {ValidadorOrdenamiento.EstaOrdenado(ordenadosQuick)}");
+
+Console.WriteLine();
+Console.WriteLine("=== CASO EXTREMO: ARREGLO INVERSO ===");
+
+RegistroDatos[] inversos = new RegistroDatos[1_000];
+
+for (int i = 0; i < inversos.Length; i++)
+{
+    int id = inversos.Length - i;
+
+    inversos[i] = new RegistroDatos(
+        id,
+        id,
+        $"Registro {id}");
+}
+
+RegistroDatos[] inversosSelection =
+    (RegistroDatos[])inversos.Clone();
+
+RegistroDatos[] inversosQuick =
+    (RegistroDatos[])inversos.Clone();
+
+MetricasOrdenacion metricasSelectionInverso =
+    SelectionSorter.OrdenarPorSeleccion(
+        inversosSelection);
+
+MetricasQuickSort metricasQuickInverso =
+    QuickSorter.Ordenar(
+        inversosQuick);
+
+Console.WriteLine(
+    $"Selection Sort : {metricasSelectionInverso.TiempoMs:F4} ms");
+
+Console.WriteLine(
+    $"QuickSort      : {metricasQuickInverso.TiempoMilisegundos:F4} ms");
+
+Console.WriteLine(
+    $"Selection válido: {ValidadorOrdenamiento.EstaOrdenado(inversosSelection)}");
+
+Console.WriteLine(
+    $"QuickSort válido : {ValidadorOrdenamiento.EstaOrdenado(inversosQuick)}");
+
+Console.WriteLine();
+Console.WriteLine("=== CASO EXTREMO: ELEMENTOS REPETIDOS ===");
+
+RegistroDatos[] repetidos = new RegistroDatos[1_000];
+
+for (int i = 0; i < repetidos.Length; i++)
+{
+    int id = (i % 10) + 1;
+
+    repetidos[i] = new RegistroDatos(
+        id,
+        i + 1,
+        $"Registro {id}");
+}
+
+RegistroDatos[] repetidosSelection =
+    (RegistroDatos[])repetidos.Clone();
+
+RegistroDatos[] repetidosQuick =
+    (RegistroDatos[])repetidos.Clone();
+
+MetricasOrdenacion metricasSelectionRepetidos =
+    SelectionSorter.OrdenarPorSeleccion(
+        repetidosSelection);
+
+MetricasQuickSort metricasQuickRepetidos =
+    QuickSorter.Ordenar(
+        repetidosQuick);
+
+Console.WriteLine(
+    $"Selection Sort : {metricasSelectionRepetidos.TiempoMs:F4} ms");
+
+Console.WriteLine(
+    $"QuickSort      : {metricasQuickRepetidos.TiempoMilisegundos:F4} ms");
+
+Console.WriteLine(
+    $"Selection válido: {ValidadorOrdenamiento.EstaOrdenado(repetidosSelection)}");
+
+Console.WriteLine(
+    $"QuickSort válido : {ValidadorOrdenamiento.EstaOrdenado(repetidosQuick)}");
 }
 
         catch (ArgumentException ex)
