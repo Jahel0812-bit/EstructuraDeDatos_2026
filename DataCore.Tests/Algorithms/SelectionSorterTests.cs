@@ -45,7 +45,7 @@ public class SelectionSorterTests
         MetricasOrdenacion metricas =
             SelectionSorter.OrdenarPorSeleccion(registros);
 
-        Assert.Equal(0, registros.Length);
+        Assert.Empty(registros);
     }
 
     [Fact]
