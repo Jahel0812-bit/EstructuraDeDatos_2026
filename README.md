@@ -167,6 +167,44 @@ dotnet test EstructuraDeDatos_2026.slnx
 
 Al finalizar la implementación de esta fase, las pruebas de las fases anteriores se conservaron para comprobar que los nuevos cambios no afectaran el comportamiento existente.
 
+## Ejecución del proyecto
+
+### Clonar el repositorio
+
+```bash
+git clone URL_DEL_REPOSITORIO
+cd EstructuraDeDatos_2026
+```
+
+> Reemplazar `URL_DEL_REPOSITORIO` por la dirección HTTPS del repositorio en GitHub.
+
+### Compilar y ejecutar
+
+Desde la raíz del repositorio:
+
+```powershell
+dotnet build
+dotnet run --project DataCore
+```
+
+### Ejecutar las pruebas
+
+```powershell
+dotnet test EstructuraDeDatos_2026.slnx
+```
+
+### Salida esperada
+
+Al ejecutar el proyecto se muestra en consola la comparación entre Selection Sort y QuickSort para conjuntos de:
+
+- 100 registros.
+- 1,000 registros.
+- 10,000 registros.
+
+Para cada algoritmo se muestran métricas como comparaciones, intercambios y tiempo de ejecución. QuickSort también muestra el número de llamadas recursivas.
+
+Finalmente se ejecutan los casos especiales con arreglos ordenados, inversamente ordenados y con elementos repetidos, verificando automáticamente que ambos algoritmos produzcan un resultado correctamente ordenado.
+
 ## Documentación
 
 El análisis teórico de QuickSort, su complejidad temporal y espacial, la selección del pivote y los resultados experimentales se encuentran en:
