@@ -15,4 +15,14 @@ public sealed class MetricasQuickSort
     /// Tiempo total empleado por el algoritmo.
     /// </summary>
     public double TiempoMilisegundos { get; set; }
+
+    /// <summary>
+/// Número total de comparaciones realizadas.
+/// </summary>
+public long TotalComparaciones { get; set; }
+
+/// <summary>
+/// Número total de intercambios realizados.
+/// </summary>
+public long TotalIntercambios { get; set; }
 }

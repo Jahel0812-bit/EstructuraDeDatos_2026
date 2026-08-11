@@ -54,11 +54,19 @@ foreach (int tamanio in tamanos)
         $"Tiempo (ms)   : {metricasSelection.TiempoMs:F4}");
 
     Console.WriteLine();
-    Console.WriteLine("--- QuickSort ---");
-    Console.WriteLine(
-        $"Llamadas recursivas : {metricasQuick.LlamadasRecursivas:N0}");
-    Console.WriteLine(
-        $"Tiempo (ms)         : {metricasQuick.TiempoMilisegundos:F4}");
+Console.WriteLine("--- QuickSort ---");
+
+Console.WriteLine(
+    $"Comparaciones       : {metricasQuick.TotalComparaciones:N0}");
+
+Console.WriteLine(
+    $"Intercambios        : {metricasQuick.TotalIntercambios:N0}");
+
+Console.WriteLine(
+    $"Llamadas recursivas : {metricasQuick.LlamadasRecursivas:N0}");
+
+Console.WriteLine(
+    $"Tiempo (ms)         : {metricasQuick.TiempoMilisegundos:F4}");
 
     Console.WriteLine();
     Console.WriteLine("--- Validación ---");
@@ -107,6 +115,15 @@ Console.WriteLine(
 Console.WriteLine(
     $"QuickSort válido : {ValidadorOrdenamiento.EstaOrdenado(ordenadosQuick)}");
 
+Console.WriteLine(
+    $"Comparaciones QuickSort : {metricasQuickOrdenado.TotalComparaciones:N0}");
+
+Console.WriteLine(
+    $"Intercambios QuickSort  : {metricasQuickOrdenado.TotalIntercambios:N0}");
+
+Console.WriteLine(
+    $"Llamadas recursivas     : {metricasQuickOrdenado.LlamadasRecursivas:N0}");
+
 Console.WriteLine();
 Console.WriteLine("=== CASO EXTREMO: ARREGLO INVERSO ===");
 
@@ -148,6 +165,15 @@ Console.WriteLine(
 Console.WriteLine(
     $"QuickSort válido : {ValidadorOrdenamiento.EstaOrdenado(inversosQuick)}");
 
+Console.WriteLine(
+    $"Comparaciones QuickSort : {metricasQuickInverso.TotalComparaciones:N0}");
+
+Console.WriteLine(
+    $"Intercambios QuickSort  : {metricasQuickInverso.TotalIntercambios:N0}");
+
+Console.WriteLine(
+    $"Llamadas recursivas     : {metricasQuickInverso.LlamadasRecursivas:N0}");
+
 Console.WriteLine();
 Console.WriteLine("=== CASO EXTREMO: ELEMENTOS REPETIDOS ===");
 
@@ -188,6 +214,15 @@ Console.WriteLine(
 
 Console.WriteLine(
     $"QuickSort válido : {ValidadorOrdenamiento.EstaOrdenado(repetidosQuick)}");
+
+Console.WriteLine(
+    $"Comparaciones QuickSort : {metricasQuickRepetidos.TotalComparaciones:N0}");
+
+Console.WriteLine(
+    $"Intercambios QuickSort  : {metricasQuickRepetidos.TotalIntercambios:N0}");
+
+Console.WriteLine(
+    $"Llamadas recursivas     : {metricasQuickRepetidos.LlamadasRecursivas:N0}");
 }
 
         catch (ArgumentException ex)

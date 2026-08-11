@@ -60,7 +60,8 @@ private static void OrdenarRecursivo(
     int indice = Particionar(
         datos,
         izquierda,
-        derecha);
+        derecha,
+        metricas);
 
     if (izquierda < indice - 1)
     {
@@ -88,29 +89,53 @@ private static void OrdenarRecursivo(
     private static int Particionar(
     RegistroDatos[] datos,
     int izquierda,
-    int derecha)
+    int derecha,
+    MetricasQuickSort metricas)
 {
-    int indicePivote = izquierda + (derecha - izquierda) / 2;
-    int idPivote = datos[indicePivote].Id;
+    int indicePivote =
+        izquierda + (derecha - izquierda) / 2;
+
+    int idPivote =
+        datos[indicePivote].Id;
 
     int i = izquierda;
     int j = derecha;
 
     while (i <= j)
     {
-        while (datos[i].Id < idPivote)
+        while (true)
         {
+            metricas.TotalComparaciones++;
+
+            if (datos[i].Id >= idPivote)
+            {
+                break;
+            }
+
             i++;
         }
 
-        while (datos[j].Id > idPivote)
+        while (true)
         {
+            metricas.TotalComparaciones++;
+
+            if (datos[j].Id <= idPivote)
+            {
+                break;
+            }
+
             j--;
         }
 
         if (i <= j)
         {
-            (datos[i], datos[j]) = (datos[j], datos[i]);
+            if (i != j)
+            {
+                (datos[i], datos[j]) =
+                    (datos[j], datos[i]);
+
+                metricas.TotalIntercambios++;
+            }
 
             i++;
             j--;
