@@ -1,4 +1,6 @@
+using DataCore.Algorithms;
 using DataCore.Models;
+using DataCore.Services;
 
 namespace DataCore.Tests.Models;
 
@@ -85,5 +87,43 @@ public void EliminarPorId_UltimoNodo_EliminaCorrectamente()
     Assert.Equal(2, resultado.Length);
     Assert.Equal(1, resultado[0].Id);
     Assert.Equal(2, resultado[1].Id);
+}
+
+[Fact]
+public void ObtenerComoArreglo_PermiteOrdenarConQuickSortYSelectionSort()
+{
+    TablaDinamica tabla = new();
+
+    tabla.InsertarFinal(new RegistroDatos(5, 500, "Registro-5"));
+    tabla.InsertarFinal(new RegistroDatos(2, 200, "Registro-2"));
+    tabla.InsertarFinal(new RegistroDatos(4, 400, "Registro-4"));
+    tabla.InsertarFinal(new RegistroDatos(1, 100, "Registro-1"));
+    tabla.InsertarFinal(new RegistroDatos(3, 300, "Registro-3"));
+
+    RegistroDatos[] original =
+        tabla.ObtenerComoArreglo();
+
+    RegistroDatos[] paraQuickSort =
+        (RegistroDatos[])original.Clone();
+
+    RegistroDatos[] paraSelectionSort =
+        (RegistroDatos[])original.Clone();
+
+    QuickSorter.Ordenar(paraQuickSort);
+
+    SelectionSorter.OrdenarPorSeleccion(
+        paraSelectionSort);
+
+    Assert.True(
+        ValidadorOrdenamiento.EstaOrdenado(
+            paraQuickSort));
+
+    Assert.True(
+        ValidadorOrdenamiento.EstaOrdenado(
+            paraSelectionSort));
+
+    Assert.Equal(
+        paraQuickSort.Select(r => r.Id),
+        paraSelectionSort.Select(r => r.Id));
 }
 }
