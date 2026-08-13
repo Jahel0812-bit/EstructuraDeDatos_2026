@@ -1,246 +1,292 @@
-# DataCore - Proyecto Final Fase 1
+# DataCore v4.0 — Proyecto Final de Estructura de Datos
 
 ## Descripción
 
-DataCore es un proyecto desarrollado en C# que implementa el algoritmo
-Selection Sort utilizando un `readonly struct` llamado `RegistroDatos`.
+DataCore es una aplicación de consola desarrollada en C# para aplicar e integrar diferentes conceptos de Estructura de Datos.
 
-El programa genera 40 registros con identificadores únicos y desordenados,
-los ordena por ID y muestra métricas del algoritmo como:
+El proyecto fue desarrollado progresivamente en cuatro fases e integra:
 
-- Comparaciones
-- Intercambios
-- Tiempo de ejecución
+- Registros inmutables mediante `readonly struct`.
+- Selection Sort.
+- QuickSort recursivo.
+- Lista simplemente enlazada.
+- Conversión de lista enlazada a arreglo.
+- Búsqueda binaria indexada.
+- Métricas de rendimiento.
+- Benchmark de estructuras de datos.
+- Pruebas unitarias y de integración.
+- Menú Maestro interactivo mediante CLI.
 
----
-
-## Estructura del proyecto
-
-DataCore
-│
-├── Models
-├── Algorithms
-├── Services
-├── Presentation
-└── Program.cs
+La versión final permite administrar registros durante una misma sesión mediante inserción, eliminación, visualización, ordenamiento y búsqueda.
 
 ---
 
-## Tecnologías
+## Tecnologías utilizadas
 
 - C#
-- .NET
+- .NET 10
+- xUnit
 - Visual Studio Code
 - Git
 - GitHub
 
 ---
 
+## Estructura principal
+
+```text
+DataCore/
+├── Algorithms/
+│   ├── BuscadorIndexado.cs
+│   ├── QuickSorter.cs
+│   └── SelectionSorter.cs
+│
+├── Models/
+│   ├── MetricasOrdenacion.cs
+│   ├── MetricasQuickSort.cs
+│   ├── NodoRegistro.cs
+│   ├── RegistroDatos.cs
+│   └── TablaDinamica.cs
+│
+├── Presentation/
+│   ├── MenuMaestro.cs
+│   ├── ReporteConsola.cs
+│   └── ValidadorOrdenamiento.cs
+│
+├── Services/
+│   ├── BenchmarkMemoria.cs
+│   └── GeneradorRegistros.cs
+│
+└── Program.cs
+
+DataCore.Tests/
+└── Pruebas automatizadas de los módulos del sistema
+```
+
+---
+
+## Funcionalidades
+
+El Menú Maestro de DataCore v4.0 permite:
+
+1. Insertar registros.
+2. Eliminar registros mediante su Id.
+3. Mostrar todos los registros almacenados.
+4. Ordenar registros por Id.
+5. Buscar registros mediante búsqueda binaria indexada.
+6. Salir del programa mediante confirmación.
+
+El sistema también valida entradas incorrectas y evita la inserción de identificadores duplicados.
+
+---
+
+## Algoritmos implementados
+
+### Selection Sort
+
+Ordena los registros comparando cada posición con los elementos restantes para encontrar el menor Id.
+
+Complejidad temporal:
+
+- Mejor caso: `O(n²)`
+- Caso promedio: `O(n²)`
+- Peor caso: `O(n²)`
+
+Complejidad espacial:
+
+- `O(1)`
+
+### QuickSort
+
+Implementación recursiva que utiliza un elemento central como pivote.
+
+Complejidad temporal:
+
+- Mejor caso: `O(n log n)`
+- Caso promedio: `O(n log n)`
+- Peor caso: `O(n²)`
+
+Complejidad espacial:
+
+- Depende de la profundidad de la recursividad.
+- En condiciones balanceadas: `O(log n)`.
+
+### Búsqueda binaria indexada
+
+La búsqueda se realiza sobre un arreglo previamente ordenado por `Id`.
+
+Complejidad temporal:
+
+- Mejor caso: `O(1)`
+- Caso promedio: `O(log n)`
+- Peor caso: `O(log n)`
+
+El proceso utilizado es:
+
+```text
+TablaDinamica
+      ↓
+ObtenerComoArreglo()
+      ↓
+QuickSort
+      ↓
+Búsqueda Binaria
+```
+
+### Lista simplemente enlazada
+
+`TablaDinamica` utiliza nodos enlazados para almacenar los registros dinámicamente.
+
+Características principales:
+
+- Inserción al inicio: `O(1)`
+- Inserción al final: `O(n)`
+- Eliminación por Id: `O(n)`
+- Conversión a arreglo: `O(n)`
+
+---
+
 ## Compilación
 
-```bash
+Desde la raíz del repositorio:
+
+```powershell
 dotnet build
+```
+
+También puede compilarse específicamente DataCore:
+
+```powershell
+dotnet build DataCore/DataCore.csproj
 ```
 
 ---
 
 ## Ejecución
 
-```bash
-dotnet run
-```
-
----
-
-## Decisiones de diseño
-
-Durante el desarrollo se tomaron las siguientes decisiones:
-
-- Uso de `readonly struct` para representar registros inmutables.
-- Separación de responsabilidades mediante carpetas Models,
-  Algorithms, Services y Presentation.
-- Uso de Selection Sort para ordenar por identificador.
-- Medición del tiempo mediante `Stopwatch`.
-- Intercambio utilizando sintaxis moderna de tuplas.
-
----
-
-## Resultados obtenidos
-
-La ejecución del programa muestra:
-
-- Registros antes del ordenamiento.
-- Registros después del ordenamiento.
-- Total de comparaciones.
-- Total de intercambios.
-- Tiempo de ejecución.
-
----
-
-## IA Utilizada
-
-### Herramienta
-
-OpenAI ChatGPT.
-
-### Prompt utilizado
-
-> Estoy desarrollando la Fase 1 del proyecto DataCore para Estructura de Datos
-> utilizando C# moderno. Estoy implementando Selection Sort sobre un arreglo de
-> `readonly struct RegistroDatos`. Explícame cómo intercambiar dos elementos del
-> arreglo utilizando la sintaxis moderna de tuplas de C#, sin utilizar una variable
-> temporal. Explica también qué sucede durante el intercambio y por qué esta
-> sintaxis es adecuada para el proyecto.
-
-### Respuesta obtenida
-
-La IA propuso utilizar la siguiente sintaxis:
-
-```csharp
-(registros[i], registros[indiceMinimo]) =
-    (registros[indiceMinimo], registros[i]);
-
-# DataCore - Proyecto Final Fase 2
-
-## Objetivo
-
-La Fase 2 del proyecto incorpora el algoritmo QuickSort recursivo para ordenar registros por su identificador y comparar su rendimiento con Selection Sort.
-
-La implementación utiliza un pivote central y registra métricas que permiten analizar el comportamiento de ambos algoritmos con diferentes cantidades y distribuciones de datos.
-
-## Funcionalidades implementadas
-
-- Implementación recursiva de QuickSort.
-- Selección del elemento central como pivote.
-- Ordenamiento ascendente mediante `RegistroDatos.Id`.
-- Conteo de comparaciones e intercambios.
-- Conteo de llamadas recursivas.
-- Medición del tiempo de ejecución.
-- Comparación con Selection Sort.
-- Benchmark con 100, 1,000 y 10,000 registros.
-- Uso de copias independientes del mismo conjunto de datos.
-- Validación automática del ordenamiento.
-- Pruebas con arreglos ordenados, inversos y elementos repetidos.
-- Pruebas unitarias para casos normales y extremos.
-
-## Benchmark
-
-Los siguientes resultados corresponden a una ejecución experimental del proyecto.
-
-| Registros | Algoritmo | Comparaciones | Intercambios | Tiempo (ms) |
-|-----------|-----------|--------------:|-------------:|------------:|
-| 100 | Selection Sort | 4,950 | 96 | 0.0856 |
-| 100 | QuickSort | 913 | 162 | 0.4605 |
-| 1,000 | Selection Sort | 499,500 | 993 | 4.0861 |
-| 1,000 | QuickSort | 15,415 | 2,277 | 0.2502 |
-| 10,000 | Selection Sort | 49,995,000 | 9,989 | 194.9990 |
-| 10,000 | QuickSort | 174,225 | 31,263 | 1.7507 |
-
-Los resultados muestran que QuickSort reduce considerablemente el número de comparaciones conforme aumenta el tamaño del conjunto de datos.
-
-Los tiempos pueden variar entre ejecuciones y equipos, por lo que se utilizan como evidencia experimental de la tendencia de rendimiento y no como valores absolutos.
-
-## Casos evaluados
-
-Además del benchmark principal se probaron los siguientes escenarios:
-
-- Arreglo vacío.
-- Un solo elemento.
-- Dos elementos ordenados.
-- Dos elementos invertidos.
-- Identificadores repetidos.
-- Datos aleatorios.
-- Arreglo previamente ordenado.
-- Arreglo inversamente ordenado.
-
-Todos los resultados fueron verificados mediante una validación automática del orden ascendente por `Id`.
-
-## Pruebas
-
-Las pruebas automatizadas se encuentran en el proyecto `DataCore.Tests`.
-
-Para ejecutarlas:
+Para iniciar el Menú Maestro:
 
 ```powershell
-dotnet test EstructuraDeDatos_2026.slnx
-```
-
-Al finalizar la implementación de esta fase, las pruebas de las fases anteriores se conservaron para comprobar que los nuevos cambios no afectaran el comportamiento existente.
-
-## Ejecución del proyecto
-
-### Clonar el repositorio
-
-```bash
-git clone URL_DEL_REPOSITORIO
-cd EstructuraDeDatos_2026
-```
-
-> Reemplazar `URL_DEL_REPOSITORIO` por la dirección HTTPS del repositorio en GitHub.
-
-### Compilar y ejecutar
-
-Desde la raíz del repositorio:
-
-```powershell
-dotnet build
 dotnet run --project DataCore
 ```
 
-### Ejecutar las pruebas
+Al iniciar se mostrará:
+
+```text
+===========================================
+       DATACORE v4.0 - MENÚ MAESTRO
+===========================================
+ Registros actuales: 0
+
+ [1] Insertar registro
+ [2] Eliminar registro por Id
+ [3] Mostrar todos los registros
+ [4] Ordenar registros por Id
+ [5] Búsqueda avanzada
+ [6] Salir
+===========================================
+```
+
+---
+
+## Pruebas automatizadas
+
+Las pruebas se encuentran en el proyecto:
+
+```text
+DataCore.Tests
+```
+
+Para ejecutar toda la suite:
 
 ```powershell
 dotnet test EstructuraDeDatos_2026.slnx
 ```
 
-### Salida esperada
+Durante la integración de la Fase 4 se obtuvieron:
 
-Al ejecutar el proyecto se muestra en consola la comparación entre Selection Sort y QuickSort para conjuntos de:
+```text
+29 pruebas aprobadas
+```
 
-- 100 registros.
-- 1,000 registros.
-- 10,000 registros.
+Las pruebas incluyen casos normales, casos borde e interoperabilidad entre los diferentes módulos.
 
-Para cada algoritmo se muestran métricas como comparaciones, intercambios y tiempo de ejecución. QuickSort también muestra el número de llamadas recursivas.
+---
 
-Finalmente se ejecutan los casos especiales con arreglos ordenados, inversamente ordenados y con elementos repetidos, verificando automáticamente que ambos algoritmos produzcan un resultado correctamente ordenado.
+## Pruebas de integración
 
-## Documentación
+Se realizó una prueba manual de extremo a extremo mediante el Menú Maestro con 15 operaciones.
 
-El análisis teórico de QuickSort, su complejidad temporal y espacial, la selección del pivote y los resultados experimentales se encuentran en:
+Entre los escenarios evaluados se encuentran:
 
-`TEORIA.md`
+- Tabla vacía.
+- Inserción de múltiples registros.
+- Intento de Id duplicado.
+- Visualización de registros.
+- Ordenamiento.
+- Búsqueda de Id existente.
+- Búsqueda de Id inexistente.
+- Eliminación de registros.
+- Eliminación del último elemento.
+- Confirmación y cancelación de salida.
 
-## IA Utilizada - Fase 2
+Todos los escenarios fueron ejecutados correctamente.
 
-### Herramienta
+El reporte detallado se encuentra en:
 
-ChatGPT de OpenAI.
+```text
+reporte-pruebas-integracion-fase4.md
+```
 
-### Problema consultado
+---
 
-Durante la implementación de QuickSort se utilizó IA como apoyo para comprender cómo influye la selección del pivote en el rendimiento del algoritmo y cómo instrumentar la implementación para obtener métricas sin modificar su funcionamiento.
+## Evolución del proyecto
 
-### Prompt utilizado
+### Fase 1 — Selection Sort
 
-> Estoy implementando QuickSort recursivo en C# para ordenar un arreglo de `RegistroDatos` por su propiedad `Id`. Quiero utilizar el elemento central del segmento como pivote y comparar su rendimiento contra Selection Sort. ¿Cómo funciona esta estrategia de pivote y cómo puedo registrar comparaciones, intercambios, llamadas recursivas y tiempo de ejecución sin cambiar el resultado del algoritmo?
+Se implementó el modelo `RegistroDatos` y el algoritmo Selection Sort con métricas de comparaciones, intercambios y tiempo.
 
-### Respuesta obtenida
+### Fase 2 — QuickSort
 
-La IA explicó que el elemento central puede utilizarse como pivote calculando su índice a partir de los límites izquierdo y derecho del segmento.
+Se incorporó QuickSort recursivo y se comparó experimentalmente su rendimiento contra Selection Sort.
 
-También propuso instrumentar el algoritmo mediante contadores para registrar las comparaciones realizadas contra el pivote, los intercambios entre posiciones diferentes y las llamadas recursivas. Para medir el tiempo de ejecución recomendó utilizar `Stopwatch`.
+### Fase 3 — Lista Simplemente Enlazada
 
-### Decisión tomada
+Se implementaron `NodoRegistro` y `TablaDinamica`, permitiendo almacenamiento dinámico, inserción, eliminación y conversión a arreglo.
 
-Se adoptó el uso del elemento central como pivote y la instrumentación mediante una clase independiente denominada `MetricasQuickSort`.
+También se realizaron pruebas de interoperabilidad y un benchmark entre arreglo estático y lista enlazada.
 
-La propuesta fue adaptada a la arquitectura existente de DataCore para mantener separados el algoritmo, el modelo de métricas y la presentación de resultados.
+### Fase 4 — Integración Final
 
-Además, se validó la implementación mediante pruebas unitarias y benchmarks antes de conservar los cambios.
+Se incorporó búsqueda binaria indexada y el Menú Maestro CLI, integrando los componentes desarrollados en las fases anteriores.
+
+---
+
+## Documentación adicional
+
+El repositorio incluye documentación complementaria:
+
+```text
+PF-Fase1.docx
+PF-Fase2.docx
+PF-Fase3.docx
+TEORIA.md
+reporte-benchmark.md
+reporte-pruebas-integracion-fase4.md
+```
+
+---
+
+## Control de versiones
+
+El proyecto utiliza Git y GitHub mediante ramas de trabajo y Pull Requests.
+
+Las funcionalidades fueron desarrolladas en ramas independientes antes de integrarse a la rama principal, manteniendo commits descriptivos y evitando modificaciones directas innecesarias sobre `main`.
+
+---
 
 ## Autor
 
-Jahel Corona
-UNITEC
-Proyecto Final – Estructura de Datos
+Jahel Corona  
+UNITEC  
+Proyecto Final — Estructura de Datos

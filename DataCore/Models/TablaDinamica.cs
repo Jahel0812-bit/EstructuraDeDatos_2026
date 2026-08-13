@@ -1,18 +1,34 @@
 namespace DataCore.Models;
-
+    /// <summary>
+/// Representa una tabla dinámica implementada
+/// mediante una lista simplemente enlazada.
+/// </summary>
 public class TablaDinamica
 {
     private NodoRegistro? cabeza;
     private int contadorRegistros;
-
+/// <summary>
+    /// Inicializa una nueva tabla dinámica vacía.
+    /// </summary>
     public TablaDinamica()
     {
         cabeza = null;
         contadorRegistros = 0;
     }
-
+   /// <summary>
+    /// Inserta un registro al inicio de la lista enlazada.
+    /// </summary>
+    /// <param name="nuevoRegistro">
+    /// Registro que se agregará como nueva cabeza.
+    /// </param>
     public void InsertarInicio(RegistroDatos nuevoRegistro)
     {
+            /// <summary>
+    /// Inserta un registro al final de la lista enlazada.
+    /// </summary>
+    /// <param name="nuevoRegistro">
+    /// Registro que se agregará al final de la estructura.
+    /// </param>
         NodoRegistro nuevoNodo = new(nuevoRegistro);
 
         nuevoNodo.Siguiente = cabeza;
@@ -43,7 +59,13 @@ public class TablaDinamica
 
         contadorRegistros++;
     }
-
+    /// <summary>
+    /// Busca y elimina el primer registro cuyo Id
+    /// coincida con el identificador especificado.
+    /// </summary>
+    /// <param name="idTarget">
+    /// Identificador del registro que se desea eliminar.
+    /// </param>
     public void EliminarPorId(int idTarget)
     {
         if (cabeza == null)
@@ -74,7 +96,14 @@ public class TablaDinamica
             actual = actual.Siguiente;
         }
     }
-
+    /// <summary>
+    /// Convierte los registros almacenados en la lista
+    /// enlazada a un arreglo de RegistroDatos.
+    /// </summary>
+    /// <returns>
+    /// Arreglo que contiene exactamente los registros
+    /// existentes en la tabla dinámica.
+    /// </returns>
     public RegistroDatos[] ObtenerComoArreglo()
     {
         RegistroDatos[] resultado =
