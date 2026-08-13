@@ -223,6 +223,63 @@ Console.WriteLine(
 
 Console.WriteLine(
     $"Llamadas recursivas     : {metricasQuickRepetidos.LlamadasRecursivas:N0}");
+
+Console.WriteLine();
+Console.WriteLine("=== FASE 3: LISTA SIMPLEMENTE ENLAZADA ===");
+
+TablaDinamica tablaDinamica = new();
+
+Console.WriteLine();
+Console.WriteLine("--- Inserción de 15 registros ---");
+
+for (int i = 1; i <= 15; i++)
+{
+    RegistroDatos registro = new(
+    i,
+    i * 100,
+    $"Transaccion-{i}");
+
+    tablaDinamica.InsertarFinal(registro);
+
+    Console.WriteLine(
+        $"[INSERT] Registro {i} añadido a la cadena.");
+}
+
+Console.WriteLine();
+Console.WriteLine("--- Eliminando registros con Id 5 y Id 11 ---");
+
+tablaDinamica.EliminarPorId(5);
+tablaDinamica.EliminarPorId(11);
+
+Console.WriteLine(
+    "Cadena reestructurada exitosamente.");
+
+RegistroDatos[] arregloDinamico =
+    tablaDinamica.ObtenerComoArreglo();
+
+Console.WriteLine();
+Console.WriteLine(
+    $"Registros en arreglo: {arregloDinamico.Length} (esperado: 13)");
+
+MetricasQuickSort metricasLista =
+    QuickSorter.Ordenar(arregloDinamico);
+
+Console.WriteLine();
+Console.WriteLine("--- Arreglo ordenado por Id con QuickSort ---");
+
+foreach (RegistroDatos registro in arregloDinamico)
+{
+    Console.WriteLine(
+    $"Id: {registro.Id} | " +
+    $"Valor: {registro.Valor:F2} | " +
+    $"Etiqueta: {registro.Etiqueta}");
+}
+
+Console.WriteLine();
+Console.WriteLine(
+    $"QuickSort válido: {ValidadorOrdenamiento.EstaOrdenado(arregloDinamico)}");
+
+BenchmarkMemoria.Ejecutar(1_000);
 }
 
         catch (ArgumentException ex)
