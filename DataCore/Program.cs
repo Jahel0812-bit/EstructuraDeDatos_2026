@@ -278,6 +278,8 @@ foreach (RegistroDatos registro in arregloDinamico)
 Console.WriteLine();
 Console.WriteLine(
     $"QuickSort válido: {ValidadorOrdenamiento.EstaOrdenado(arregloDinamico)}");
+
+BenchmarkMemoria.Ejecutar(1_000);
 }
 
         catch (ArgumentException ex)
