@@ -2,9 +2,19 @@ using DataCore.Models;
 using System.Diagnostics;
 
 namespace DataCore.Services;
-
+/// <summary>
+/// Proporciona operaciones para comparar el rendimiento
+/// y uso aproximado de memoria entre estructuras de datos.
+/// </summary>
 public static class BenchmarkMemoria
 {
+        /// <summary>
+    /// Ejecuta un benchmark con la cantidad de registros indicada
+    /// para comparar un arreglo estático y una lista enlazada.
+    /// </summary>
+    /// <param name="cantidad">
+    /// Número de registros que se utilizarán durante la prueba.
+    /// </param>
     public static void Ejecutar(int cantidad)
     {
         Console.WriteLine();
